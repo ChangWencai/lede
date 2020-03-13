@@ -198,7 +198,6 @@ jobs:
           EOF
           
           # 9. Freifunk
-          CONFIG_PACKAGE_default-settings=y
           CONFIG_PACKAGE_luci-i18n-accesscontrol-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-adblock-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-adbyby-plus-zh-cn=y
