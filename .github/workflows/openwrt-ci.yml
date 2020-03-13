@@ -44,15 +44,6 @@ jobs:
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
-          
-      #- name: 自定义插件主题
-      #  run: |
-      #    cd package
-      #    git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git
-      #    cd ..
-      #     git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git
-      #     git clone https://github.com/rosywrt/luci-theme-rosy.git
-          
           # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
           # ln -s /mnt/openwrt/bin ./bin
           # mkdir -p ./build_dir/host && ln -s /mnt/openwrt/build_dir/host ./build_dir/host
@@ -60,7 +51,7 @@ jobs:
           # ln -s /mnt/openwrt/dl ./dl
           # ln -s /mnt/openwrt/feeds ./feeds
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
-          # df -h
+          df -h
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -150,43 +141,22 @@ jobs:
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Simple_obfs=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2SOCKS=y
           CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_PACKAGE_luci-app-verysync=y
           CONFIG_PACKAGE_luci-app-webadmin=y
           CONFIG_PACKAGE_luci-app-wireguard=y
-          CONFIG_PACKAGE_luci-app-ssr-plus=y
-          CONFIG_PACKAGE_luci-app-ramfree=y
-          CONFIG_PACKAGE_luci-app-rp-pppoe-server=y
-          CONFIG_PACKAGE_luci-app-samba=y
-          CONFIG_PACKAGE_luci-app-samba4=y
-          CONFIG_PACKAGE_luci-app-shadowsocks-libev=y
-          CONFIG_PACKAGE_luci-app-transmission=y
-          CONFIG_PACKAGE_luci-app-unblockmusic=y
+          CONFIG_PACKAGE_luci-app-wrtbwmon=y
           CONFIG_UnblockNeteaseMusic_Go=y
           CONFIG_UnblockNeteaseMusic_NodeJS=y
-          CONFIG_PACKAGE_luci-app-wol=y
-          CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          CONFIG_PACKAGE_luci-app-xlnetacc=y
-          CONFIG_PACKAGE_luci-app-zerotier=y
           CONFIG_PACKAGE_luci-app-syncdial=y
-          CONFIG_PACKAGE_luci-app-adblock=y
-          CONFIG_PACKAGE_luci-app-advanced-reboot=y
-          CONFIG_PACKAGE_luci-app-autoreboot=y
-          CONFIG_PACKAGE_luci-app-commands=y
-          CONFIG_PACKAGE_luci-app-qos=y
           EOF
           # LuCI主题:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
           CONFIG_PACKAGE_luci-theme-netgear=y
-          CONFIG_PACKAGE_luci-theme-bootstrap=y
-          CONFIG_PACKAGE_luci-theme-material=y
           EOF
           # 常用软件包:
           cat >> .config <<EOF
@@ -199,36 +169,6 @@ jobs:
           CONFIG_PACKAGE_wget=y
           EOF
           
-          #
-          # BitTorrent
-          #
-          CONFIG_PACKAGE_mktorrent=y
-          CONFIG_PACKAGE_opentracker=y
-          CONFIG_PACKAGE_opentracker6=y
-          CONFIG_PACKAGE_qBittorrent=y
-          CONFIG_PACKAGE_rtorrent=y
-          
-          #
-          # Download Manager
-          #
-          CONFIG_PACKAGE_ariang=y
-          #
-          # Project V
-          #
-          CONFIG_PACKAGE_v2ray=y
-
-          #
-          # V2Ray Configuration
-          #
-          # CONFIG_V2RAY_COMPRESS_GOPROXY is not set
-          # CONFIG_V2RAY_JSON_V2CTL is not set
-          CONFIG_V2RAY_JSON_INTERNAL=y
-          # CONFIG_V2RAY_JSON_NONE is not set
-          CONFIG_V2RAY_EXCLUDE_V2CTL=y
-          CONFIG_V2RAY_EXCLUDE_ASSETS=y
-          CONFIG_V2RAY_COMPRESS_UPX=y
-          CONFIG_V2RAY_DISABLE_NONE=y
-          # CONFIG_V2RAY_DISABLE_CUSTOM is not set
           
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
           cat >> .config <<EOF
