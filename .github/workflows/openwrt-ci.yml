@@ -222,11 +222,6 @@ jobs:
           CONFIG_PACKAGE_opentracker6=y
           CONFIG_PACKAGE_qBittorrent=y
           CONFIG_PACKAGE_rtorrent=y
-          CONFIG_PACKAGE_transmission-cli-openssl=y
-          CONFIG_PACKAGE_transmission-daemon-openssl=y
-          CONFIG_PACKAGE_transmission-remote-openssl=y
-          CONFIG_PACKAGE_transmission-web=y
-          CONFIG_PACKAGE_transmission-web-control=y
           
           #
           # Download Manager
