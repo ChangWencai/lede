@@ -45,11 +45,11 @@ jobs:
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
           
-      - name: 自定义插件主题
-        run: |
-          cd package
-          git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git
-          cd ..
+      #- name: 自定义插件主题
+      #  run: |
+      #    cd package
+      #    git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git
+      #    cd ..
       #     git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git
       #     git clone https://github.com/rosywrt/luci-theme-rosy.git
           
