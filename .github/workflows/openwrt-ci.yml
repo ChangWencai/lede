@@ -48,11 +48,10 @@ jobs:
       - name: 自定义插件主题
         run: |
           cd package
-          mkdir openwrt-packages
-          cd openwrt-packages
           git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git
-          git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git
-          git clone https://github.com/rosywrt/luci-theme-rosy.git
+          cd ..
+      #     git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git
+      #     git clone https://github.com/rosywrt/luci-theme-rosy.git
           
           # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
           # ln -s /mnt/openwrt/bin ./bin
@@ -61,7 +60,7 @@ jobs:
           # ln -s /mnt/openwrt/dl ./dl
           # ln -s /mnt/openwrt/feeds ./feeds
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
-          df -h
+          # df -h
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
