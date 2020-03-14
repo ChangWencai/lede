@@ -12,13 +12,10 @@ name: OpenWrt-CI_x64
 on:
   schedule:
     - cron: 0 20 * * *
-  push:
-    branches: 
-      - master
-  # schedule:
-  #   - cron: 0 20 * * *
-  # release:
-  #   types: [published]
+  # push:
+    # branches: 
+      # - master
+
 
 jobs:
 
