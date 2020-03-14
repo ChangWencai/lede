@@ -153,6 +153,23 @@ jobs:
           CONFIG_UnblockNeteaseMusic_NodeJS=y
           CONFIG_PACKAGE_luci-app-syncdial=y
           EOF
+          
+          #
+          # BitTorrent
+          #
+          CONFIG_PACKAGE_mktorrent=y
+          CONFIG_PACKAGE_opentracker=y
+          CONFIG_PACKAGE_opentracker6=y
+          CONFIG_PACKAGE_qBittorrent=y
+          CONFIG_PACKAGE_rtorrent=y
+          
+          #
+          # Download Manager
+          #
+          CONFIG_PACKAGE_ariang=y
+          #
+          
+          
           # LuCI主题:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
