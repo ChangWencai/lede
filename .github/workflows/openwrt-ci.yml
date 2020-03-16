@@ -170,16 +170,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-olsr-services=y
           CONFIG_PACKAGE_luci-app-olsr-viz=y
           CONFIG_PACKAGE_luci-app-samba=y
-          CONFIG_PACKAGE_luci-app-samba4=y
-          CONFIG_PACKAGE_luci-app-shadowsocks-libev=y
-          CONFIG_PACKAGE_luci-app-statistics=y
-          CONFIG_PACKAGE_luci-app-ttyd=y
-          CONFIG_PACKAGE_luci-app-udpxy=y
-          CONFIG_PACKAGE_luci-app-unbound=y
-          CONFIG_PACKAGE_luci-app-vpnbypass=y
-          CONFIG_PACKAGE_luci-app-vsftpd=y=y
-          CONFIG_PACKAGE_luci-app-watchcat=y
-          CONFIG_PACKAGE_luci-app-wireguard=y        
+          CONFIG_PACKAGE_luci-app-samba4=y        
           EOF
           
           #
