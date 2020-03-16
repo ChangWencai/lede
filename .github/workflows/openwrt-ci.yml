@@ -202,9 +202,6 @@ jobs:
           # Download Manager
           #
           CONFIG_PACKAGE_ariang=y
-          CONFIG_PACKAGE_webui-aria2=y
-          CONFIG_PACKAGE_yaaw=y
-          
           
           #
           # Aria2 Configuration
