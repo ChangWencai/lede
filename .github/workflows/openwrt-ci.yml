@@ -172,6 +172,13 @@ jobs:
           CONFIG_PACKAGE_luci-app-samba=y
           CONFIG_PACKAGE_luci-app-samba4=y
           CONFIG_PACKAGE_luci-app-shadowsocks-libev=y
+          CONFIG_PACKAGE_luci-app-shairplay=y
+          CONFIG_PACKAGE_luci-app-arpbind=y
+          CONFIG_PACKAGE_luci-app-cifsd=y
+          CONFIG_PACKAGE_luci-app-dockerman=y
+          CONFIG_PACKAGE_luci-app-familycloud=y
+          CONFIG_PACKAGE_luci-app-mtwifi=y
+          CONFIG_PACKAGE_luci-app-nps=y          
           EOF
           
           #
