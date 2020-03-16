@@ -12,9 +12,9 @@ name: OpenWrt-CI_x64
 on:
   schedule:
     - cron: 0 20 * * *
-  # push:
-    # branches: 
-      # - master
+  push:
+    branches: 
+      - master
 
 
 jobs:
@@ -133,13 +133,18 @@ jobs:
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-openvpn-server=y
           CONFIG_PACKAGE_luci-app-qbittorrent=y
+          CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Simple_obfs=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2SOCKS=y
           CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_PACKAGE_luci-app-verysync=y
@@ -149,6 +154,39 @@ jobs:
           CONFIG_UnblockNeteaseMusic_Go=y
           CONFIG_UnblockNeteaseMusic_NodeJS=y
           CONFIG_PACKAGE_luci-app-syncdial=y
+          CONFIG_PACKAGE_luci-app-commands=y
+          CONFIG_PACKAGE_luci-app-amule=y
+          CONFIG_PACKAGE_luci-app-attendedsysupgrade=y
+          CONFIG_PACKAGE_luci-app-cshark=y
+          CONFIG_PACKAGE_luci-app-dnscrypt-proxy=y
+          CONFIG_PACKAGE_luci-app-diag-core=y
+          CONFIG_PACKAGE_luci-app-dnsforwarder
+          CONFIG_PACKAGE_luci-app-filetransfer=y
+          CONFIG_PACKAGE_luci-app-flowoffload=y
+          CONFIG_PACKAGE_luci-app-firewall=y
+          CONFIG_PACKAGE_luci-app-hd-idle=y
+          CONFIG_PACKAGE_luci-app-n2n_v2=y
+          CONFIG_PACKAGE_luci-app-olsr=y
+          CONFIG_PACKAGE_luci-app-olsr-services=y
+          CONFIG_PACKAGE_luci-app-olsr-viz=y
+          CONFIG_PACKAGE_luci-app-samba=y
+          CONFIG_PACKAGE_luci-app-samba4=y
+          CONFIG_PACKAGE_luci-app-shadowsocks-libev=y
+          CONFIG_PACKAGE_luci-app-shairplay=y
+          CONFIG_PACKAGE_luci-app-arpbind=y
+          CONFIG_PACKAGE_luci-app-cifsd=y
+          CONFIG_PACKAGE_luci-app-dockerman=y
+          CONFIG_PACKAGE_luci-app-familycloud=y
+          CONFIG_PACKAGE_luci-app-mtwifi=y
+          CONFIG_PACKAGE_luci-app-nps=y
+          CONFIG_PACKAGE_luci-app-statistics=y
+          CONFIG_PACKAGE_luci-app-ttyd=y
+          CONFIG_PACKAGE_luci-app-udpxy=y
+          CONFIG_PACKAGE_luci-app-unbound=y
+          CONFIG_PACKAGE_luci-app-vpnbypass=y
+          CONFIG_PACKAGE_luci-app-vsftpd=y=y
+          CONFIG_PACKAGE_luci-app-watchcat=y
+          CONFIG_PACKAGE_luci-app-wireguard=y
           EOF
           
           #
@@ -164,8 +202,21 @@ jobs:
           # Download Manager
           #
           CONFIG_PACKAGE_ariang=y
+          CONFIG_PACKAGE_webui-aria2=y
+          CONFIG_PACKAGE_yaaw=y
+          
+          
           #
-                    # Project V
+          # Aria2 Configuration
+          #
+          CONFIG_ARIA2_OPENSSL=y
+          CONFIG_ARIA2_NOXML=y
+          CONFIG_ARIA2_BITTORRENT=y
+          CONFIG_ARIA2_WEBSOCKET=y
+          
+          
+          #
+          # Project V
           #
           CONFIG_PACKAGE_v2ray=y
 
