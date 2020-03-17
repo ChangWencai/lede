@@ -165,8 +165,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-olsr=y
           CONFIG_PACKAGE_luci-app-olsr-services=y
           CONFIG_PACKAGE_luci-app-olsr-viz=y
-          CONFIG_PACKAGE_luci-app-samba=y
-          CONFIG_PACKAGE_luci-app-samba4=y        
+          CONFIG_PACKAGE_luci-app-samba=y       
           EOF
           
           #
