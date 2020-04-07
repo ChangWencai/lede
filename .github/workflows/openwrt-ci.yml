@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrt-CI_x64
+name: 小盒子
 
 on:
   schedule:
@@ -87,9 +87,11 @@ jobs:
           # 
           # 编译x64固件:
           cat >> .config <<EOF
-          CONFIG_TARGET_x86=y
-          CONFIG_TARGET_x86_64=y
-          CONFIG_TARGET_x86_64_Generic=y
+          # CONFIG_TARGET_x86=y
+          # CONFIG_TARGET_x86_64=y
+          # CONFIG_TARGET_x86_64_Generic=y
+          CONFIG_TARGET_omap=y
+          CONFIG_TARGET_omap_DEVICE_ti_am335x-evm=y
           EOF
           # 固件压缩:
           cat >> .config <<EOF
