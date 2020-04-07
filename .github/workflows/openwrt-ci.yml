@@ -91,7 +91,7 @@ jobs:
           # CONFIG_TARGET_x86_64=y
           # CONFIG_TARGET_x86_64_Generic=y
           CONFIG_TARGET_omap=y
-          CONFIG_TARGET_omap_DEVICE_ti_am335x-evm=y
+          CONFIG_TARGET_omap_Default=y
           EOF
           # 固件压缩:
           cat >> .config <<EOF
