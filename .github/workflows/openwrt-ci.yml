@@ -7,21 +7,24 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrt-CI_x64
+name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
   push:
     branches: 
       - master
-
+  # schedule:
+  #   - cron: 0 20 * * *
+  # release:
+  #   types: [published]
 
 jobs:
 
-  build:
+  build_openwrt:
 
+    name: Build OpenWrt
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
 
@@ -38,7 +41,7 @@ jobs:
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
           sudo -E apt-get update
-          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
           # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
@@ -87,11 +90,9 @@ jobs:
           # 
           # 编译x64固件:
           cat >> .config <<EOF
-          # CONFIG_TARGET_x86=y
-          # CONFIG_TARGET_x86_64=y
-          # CONFIG_TARGET_x86_64_Generic=y
-          CONFIG_TARGET_omap=y
-          CONFIG_TARGET_omap_Default=y
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y
           EOF
           # 固件压缩:
           cat >> .config <<EOF
@@ -135,64 +136,18 @@ jobs:
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-openvpn-server=y
           CONFIG_PACKAGE_luci-app-qbittorrent=y
-          CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
           CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_PACKAGE_luci-app-verysync=y
           CONFIG_PACKAGE_luci-app-webadmin=y
           CONFIG_PACKAGE_luci-app-wireguard=y
           CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          CONFIG_UnblockNeteaseMusic_Go=y
-          CONFIG_UnblockNeteaseMusic_NodeJS=y
-          CONFIG_PACKAGE_luci-app-syncdial=y
-          CONFIG_PACKAGE_luci-app-commands=y
-          CONFIG_PACKAGE_luci-app-samba=y       
           EOF
-          
-          #
-          # BitTorrent
-          #
-          CONFIG_PACKAGE_mktorrent=y
-          CONFIG_PACKAGE_opentracker=y
-          CONFIG_PACKAGE_opentracker6=y
-          CONFIG_PACKAGE_qBittorrent=y
-          CONFIG_PACKAGE_rtorrent=y
-          
-          #
-          # Download Manager
-          #
-          CONFIG_PACKAGE_ariang=y
-          
-          #
-          # Aria2 Configuration
-          #
-          CONFIG_ARIA2_OPENSSL=y
-          CONFIG_ARIA2_NOXML=y
-          CONFIG_ARIA2_BITTORRENT=y
-          CONFIG_ARIA2_WEBSOCKET=y
-          
-          
-          #
-          # Project V
-          #
-          CONFIG_PACKAGE_v2ray=y
-
-          #
-          # V2Ray Configuration
-          #
-          CONFIG_V2RAY_JSON_INTERNAL=y
-          CONFIG_V2RAY_EXCLUDE_V2CTL=y
-          CONFIG_V2RAY_EXCLUDE_ASSETS=y
-          CONFIG_V2RAY_COMPRESS_UPX=y
-          CONFIG_V2RAY_DISABLE_NONE=y
-          
           # LuCI主题:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
@@ -208,13 +163,11 @@ jobs:
           CONFIG_PACKAGE_vim-fuller=y
           CONFIG_PACKAGE_wget=y
           EOF
-          
-          
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
-          cat >> .config <<EOF
-          # CONFIG_TARGET_IMAGES_PAD is not set
-          # CONFIG_VMDK_IMAGES is not set
-          EOF
+          # cat >> .config <<EOF
+          # # CONFIG_TARGET_IMAGES_PAD is not set
+          # # CONFIG_VMDK_IMAGES is not set
+          # EOF
           # 
           # ========================固件定制部分结束========================
           # 
@@ -222,7 +175,7 @@ jobs:
           make defconfig
       - name: Make download
         run: |
-          make download -j8
+          make download -j8 || make download -j1 V=s
           find ./dl/ -size -1024c -exec rm -f {} \;
           df -h
       - name: Compile firmware
@@ -233,14 +186,19 @@ jobs:
           echo "======================="
           df -h
           echo "======================="
-          du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
-          du -h --max-depth=1 ./build_dir
-          du -h --max-depth=1 ./bin
+          du -h ./ --max-depth=1
+          du -h /mnt/openwrt/ --max-depth=1 || true
       - name: Prepare artifact
         run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
 
-      - name: Upload artifact
+      - name: Upload config.seed
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware
+          name: config.seed
+          path: ./bin/targets/*/*/config.seed
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt_firmware
           path: ./bin/targets/
